@@ -1,0 +1,458 @@
+/* Estilos generales */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    scroll-behavior: smooth;
+    font-size: 16px;
+}
+body.dark-mode {
+  background-color: #212121;
+  color: #f5f5f5;
+}
+body.dark-mode .section-content {
+    background-color: #3a3a3a;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+body.dark-mode .calculator-card {
+    background-color: #4a4a4a;
+    border-color: #5a5a5a;
+}
+body.dark-mode .toggle-label {
+    background-color: #555;
+}
+body.dark-mode .toggle-label .ball {
+    background-color: #eee;
+}
+body.dark-mode .toggle-label .sun-icon {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+body.dark-mode .toggle-label .moon-icon {
+    opacity: 1;
+    transform: translateX(0);
+}
+/* Estilos para botones en modo oscuro */
+body.dark-mode button {
+    background-color: #007bff; /* Un azul más brillante para contraste */
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+}
+body.dark-mode button:hover {
+    background-color: #0056b3; /* Un azul más oscuro al pasar el ratón */
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.4);
+    transform: translateY(-2px);
+}
+body.dark-mode button:active {
+    background-color: #003d80;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+    transform: translateY(0);
+}
+
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+h1 {
+    font-size: 2.5rem;
+}
+h2 {
+    font-size: 2rem;
+}
+h3 {
+    font-size: 1.5rem;
+}
+
+/* --- Estilos del  Navbar --- */
+.navbar {
+    background-color: #0056b3;
+    padding: 15px 0;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+}
+.navbar .nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex-grow: 1;
+}
+.navbar .nav-links li {
+    margin: 0 15px;
+}
+.navbar .nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+.navbar .nav-links a:hover, .navbar .nav-links a.active {
+    background-color: #007bff;
+}
+
+/* --- Estilo del menu hamburguesa --- */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    z-index: 1100;
+    margin-right: 20px;
+}
+
+.hamburger-menu .bar {
+    width: 100%;
+    height: 3px;
+    background-color: white;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.nav-open .bar:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+.nav-open .bar:nth-child(2) {
+    opacity: 0;
+}
+.nav-open .bar:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* --- Estilos del toggle del dark mode --- */
+.dark-mode-toggle-container {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox {
+    opacity: 0;
+    position: absolute;
+}
+
+.toggle-label {
+    background-color: #111;
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    position: relative;
+    height: 26px;
+    width: 60px;
+    transform: scale(1);
+    transition: background-color 0.3s linear;
+}
+
+.toggle-label .ball {
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    height: 20px;
+    width: 20px;
+    transform: translateX(0px);
+    transition: transform 0.3s linear, background-color 0.3s linear;
+}
+
+.toggle-label .icon {
+    color: #fdd835;
+    font-size: 1.2em;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toggle-label .sun-icon {
+    left: 8px;
+    opacity: 1;
+}
+
+.toggle-label .moon-icon {
+    right: 8px;
+    opacity: 0;
+    color: #f0f0f0;
+}
+
+.checkbox:checked + .toggle-label {
+    background-color: #007bff;
+}
+
+.checkbox:checked + .toggle-label .ball {
+    transform: translateX(34px);
+}
+
+.checkbox:checked + .toggle-label .sun-icon {
+    opacity: 0;
+    transform: translateX(10px);
+}
+
+.checkbox:checked + .toggle-label .moon-icon {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* --- Estilos de las secciones --- */
+.section-content {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 20px;
+}
+.calculator-card {
+    padding: 20px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    background-color: #fcfcfc;
+}
+
+/* Estilos generales de los inputs y labels */
+label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.95em; }
+input[type="number"], input[type="text"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: calc(100% - 22px);
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: #fff;
+    color: #333;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode input[type="number"],
+body.dark-mode input[type="text"] {
+    background-color: #5a5a5a;
+    border-color: #777;
+    color: #f5f5f5;
+}
+
+
+/* --- Botones --- */
+button {
+    padding: 12px 20px;
+    font-size: 1.05em;
+    font-weight: 600;
+    width: 100%;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #0056b3;
+    color: white;
+    cursor: pointer;
+    /* Sombra inicial sutil, más suave */
+    box-shadow: 0 3px 6px rgba(0, 86, 179, 0.2); 
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease; 
+}
+
+button:hover {
+    background-color: #007bff; /* Azul más brillante al pasar el ratón */
+    transform: translateY(-4px); /* Aumentamos ligeramente el desplazamiento */
+    /* Sombra más pronunciada y con un poco más de dispersión */
+    box-shadow: 0 8px 16px rgba(0, 86, 179, 0.4); 
+}
+
+button:active {
+    background-color: #003d80; /* Azul más oscuro al hacer clic */
+    transform: translateY(0); /* Vuelve a la posición original */
+    /* Sombra más pequeña, dando el efecto de "presionado" */
+    box-shadow: 0 1px 2px rgba(0, 86, 179, 0.1); 
+}
+
+/* Estilos para botones en modo oscuro  */
+body.dark-mode button {
+    background-color: #007bff;
+    color: #fff;
+    box-shadow: 0 3px 6px rgba(0, 123, 255, 0.3);
+}
+body.dark-mode button:hover {
+    background-color: #0056b3;
+    box-shadow: 0 8px 16px rgba(0, 123, 255, 0.5); /* Sombra más intensa en hover oscuro */
+    transform: translateY(-4px);
+}
+body.dark-mode button:active {
+    background-color: #003d80;
+    box-shadow: 0 1px 2px rgba(0, 123, 255, 0.2);
+    transform: translateY(0);
+}
+
+
+.result-output {
+    padding: 12px;
+    font-size: 1.1em;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    margin-top: 15px;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+body.dark-mode .result-output {
+    background-color: #444;
+    border-color: #666;
+    color: #f5f5f5;
+}
+
+
+.error-message {
+    font-size: 0.9em;
+    color: #dc3545;
+    margin-top: 5px;
+}
+hr {
+    margin: 20px 0;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+body.dark-mode hr {
+    border-color: #555;
+}
+
+/* --- Estilos del Historial --- */
+#historial {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+#historial ul { list-style: none; padding: 0; }
+#historial li {
+    font-size: 0.95em;
+    padding: 10px 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+#historial li:last-child {
+    border-bottom: none;
+}
+body.dark-mode #historial {
+    background-color: #3a3a3a;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+body.dark-mode #historial li {
+    border-color: #4a4a4a;
+}
+#historial li button {
+    width: auto;
+    padding: 5px 10px;
+    font-size: 0.85em;
+    margin-top: 0;
+    margin-left: 10px;
+}
+
+/* --- Ajustes del responsive con Media Queries --- */
+
+@media (max-width: 768px) {
+    .container {
+        margin: 10px auto;
+        padding: 0 15px;
+    }
+
+    .navbar {
+        justify-content: space-between; 
+    }
+    
+    .hamburger-menu {
+        display: flex;
+        margin-right: 0;
+    }
+
+    .navbar .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px; 
+        left: 0;
+        width: 100%;
+        background-color: #0056b3;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+        transform: translateX(100%);
+        transition: transform 0.3s ease-out;
+        flex-grow: 0;
+    }
+
+    .navbar .nav-links.active {
+        transform: translateX(0);
+    }
+
+    .navbar .nav-links li {
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .navbar .nav-links li:last-child {
+        border-bottom: none;
+    }
+
+    .navbar .nav-links a {
+        padding: 15px 20px;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 0;
+    }
+    .navbar .nav-links a:hover, .navbar .nav-links a.active {
+        background-color: #007bff;
+    }
+
+
+    h2 {
+        font-size: 1.7rem;
+    }
+    h3 {
+        font-size: 1.3rem;
+    }
+
+    .section-content {
+        grid-template-columns: 1fr;
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .calculator-card {
+        padding: 15px;
+    }
+
+    body {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 10px;
+    }
+    .navbar {
+        padding: 10px 0;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    input, button, .result-output {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+}

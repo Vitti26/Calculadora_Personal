@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="hamburger-menu" id="hamburger-menu">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#factorial-section">Factorial</a></li>
+            <li><a href="#conteo-section">Conteo</a></li>
+            <li><a href="#conjuntos-section">Conjuntos</a></li>
+            <li><a href="#funciones-section">Funciones</a></li>
+            <li><a href="#historial-section">Historial</a></li>
+        </ul>
+        
+        <div class="dark-mode-toggle-container">
+            <input type="checkbox" id="darkModeToggle" class="checkbox">
+            <label for="darkModeToggle" class="toggle-label">
+                <span class="ball"></span>
+                <span class="icon sun-icon">&#9728;</span> <span class="icon moon-icon">&#9790;</span> </label>
+        </div>
+
+    </nav>
+
+    <div class="container">
+       
+        <section id="factorial-section" class="section-content">
+            <div class="calculator-card" style="grid-column: 1 / -1;"> <h2>Factorial</h2>
+                <label for="factorialNumero">Ingresa un número no negativo:</label>
+                <input type="number" id="factorialNumero" min="0" value="5">
+                <button onclick="calcularFactorial()">Calcular Factorial</button>
+                <div id="factorialResultado" class="result-output"></div>
+                <p id="factorialError" class="error-message"></p>
+            </div>
+        </section>
+
+        <section id="conteo-section" class="section-content">
+            <h2 style="grid-column: 1 / -1;">Conteo (Combinatoria)</h2>
+            <div class="calculator-card">
+                <h3>Permutaciones</h3>
+                <p><strong>P(n, k) = n! / (n-k)!</strong> (orden importa, no repite)</p>
+                <label for="permN">n (total de elementos):</label>
+                <input type="number" id="permN" min="0" value="5">
+                <label for="permK">k (elementos a elegir):</label>
+                <input type="number" id="permK" min="0" value="2">
+                <button onclick="calcularPermutaciones()">Calcular Permutaciones</button>
+                <div id="permutacionesResultado" class="result-output"></div>
+                <p id="permutacionesError" class="error-message"></p>
+            </div>
+
+            <div class="calculator-card">
+                <h3>Combinaciones</h3>
+                <p><strong>C(n, k) = n! / (k!(n-k)!)</strong> (orden no importa, no repite)</p>
+                <label for="combN">n (total de elementos):</label>
+                <input type="number" id="combN" min="0" value="5">
+                <label for="combK">k (elementos a elegir):</label>
+                <input type="number" id="combK" min="0" value="2">
+                <button onclick="calcularCombinaciones()">Calcular Combinaciones</button>
+                <div id="combinacionesResultado" class="result-output"></div>
+                <p id="combinacionesError" class="error-message"></p>
+            </div>
+        </section>
+
+        <section id="conjuntos-section" class="section-content">
+            <h2 style="grid-column: 1 / -1;">Operaciones con Conjuntos</h2>
+            <p style="grid-column: 1 / -1;">Ingresa los elementos separados por comas (ej: a,b,c,1,2).</p>
+            
+            <div class="calculator-card" style="grid-column: 1 / -1;"> <label for="conjuntoA">Conjunto A:</label>
+                <input type="text" id="conjuntoA" value="1,2,3,a,b">
+                <label for="conjuntoB">Conjunto B:</label>
+                <input type="text" id="conjuntoB" value="3,4,b,c">
+            </div>
+
+            <div class="calculator-card">
+                <h3>Unión</h3>
+                <button onclick="calcularUnion()">Unión (A ∪ B)</button>
+                <div id="unionResultado" class="result-output"></div>
+                <p id="unionError" class="error-message"></p>
+            </div>
+            
+            <div class="calculator-card">
+                <h3>Intersección</h3>
+                <button onclick="calcularInterseccion()">Intersección (A ∩ B)</button>
+                <div id="interseccionResultado" class="result-output"></div>
+                <p id="interseccionError" class="error-message"></p>
+            </div>
+
+            <div class="calculator-card">
+                <h3>Diferencia A - B</h3>
+                <button onclick="calcularDiferenciaA()">Diferencia (A - B)</button>
+                <div id="diferenciaAResultado" class="result-output"></div>
+                <p id="diferenciaAError" class="error-message"></p>
+            </div>
+
+            <div class="calculator-card">
+                <h3>Diferencia B - A</h3>
+                <button onclick="calcularDiferenciaB()">Diferencia (B - A)</button>
+                <div id="diferenciaBResultado" class="result-output"></div>
+                <p id="diferenciaBError" class="error-message"></p>
+            </div>
+        </section>
+
+        <section id="funciones-section" class="section-content">
+            <h2 style="grid-column: 1 / -1;">Evaluación de Funciones</h2>
+            <p style="grid-column: 1 / -1;">Define funciones simples usando 'x' como variable (ej: x*x + 2*x - 1).</p>
+            
+            <div class="calculator-card">
+                <h3>Evaluar Función Simple</h3>
+                <label for="funcionDefinicion">Función f(x):</label>
+                <input type="text" id="funcionDefinicion" value="x*x + 2*x - 1">
+                <label for="funcionX">Valor de x:</label>
+                <input type="number" id="funcionX" value="3">
+                <button onclick="evaluarFuncion()">Evaluar f(x)</button>
+                <div id="funcionResultado" class="result-output"></div>
+                <p id="funcionError" class="error-message"></p>
+            </div>
+
+            <div class="calculator-card">
+                <h3>Composición de Funciones (f(g(x)))</h3>
+                <label for="funcionFX">Función f(x):</label>
+                <input type="text" id="funcionFX" value="x + 5">
+                <label for="funcionGX">Función g(x):</label>
+                <input type="text" id="funcionGX" value="x * x">
+                <label for="compX">Valor de x para f(g(x)):</label>
+                <input type="number" id="compX" value="2">
+                <button onclick="evaluarComposicion()">Evaluar f(g(x))</button>
+                <div id="composicionResultado" class="result-output"></div>
+                <p id="composicionError" class="error-message"></p>
+            </div>
+        </section>
+
+        <section id="historial-section" class="section-content">
+            <div id="historial" style="grid-column: 1 / -1;">
+                <h2>Historial de Cálculos Recientes</h2>
+                <ul id="historialLista">
+                    </ul>
+            </div>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script> 
+
+</body>
+</html>
