@@ -1,0 +1,252 @@
+INICIO DEL SCRIPT
+
+// --- Funciones Auxiliares Generales ---
+
+FUNCION OBTENER_VALOR_INPUT(ID_ELEMENTO):
+    RETORNAR VALOR del elemento con ID_ELEMENTO
+
+FUNCION MOSTRAR_RESULTADO(ID_SALIDA, ID_ERROR, MENSAJE, ES_ERROR = FALSO):
+    elemento_salida = obtener elemento con ID_SALIDA
+    elemento_error = obtener elemento con ID_ERROR
+
+    SI ES_ERROR ES VERDADERO ENTONCES:
+        Limpiar contenido de elemento_salida
+        Establecer contenido de elemento_error a un párrafo con MENSAJE
+        Mostrar elemento_error
+    SINO:
+        Establecer contenido de elemento_salida a MENSAJE
+        Limpiar contenido de elemento_error
+        Ocultar elemento_error
+    FIN_SI
+
+FUNCION ALTERNAR_MODO_OSCURO():
+    Alternar clase 'dark-mode' en el CUERPO del documento
+    SI CUERPO del documento TIENE CLASE 'dark-mode' ENTONCES:
+        Guardar en almacenamiento local: 'darkMode' = 'enabled'
+    SINO:
+        Guardar en almacenamiento local: 'darkMode' = 'disabled'
+    FIN_SI
+
+// --- Lógica del Menú Hamburguesa y Toggle de Tema ---
+
+AL CARGAR EL DOCUMENTO:
+    menu_hamburguesa = obtener elemento 'hamburger-menu'
+    enlaces_navegacion = obtener elemento 'nav-links'
+    toggle_modo_oscuro = obtener elemento 'darkModeToggle'
+
+    // Lógica del menú hamburguesa
+    AL HACER CLIC en menu_hamburguesa:
+        Alternar clase 'active' en enlaces_navegacion
+        Alternar clase 'nav-open' en menu_hamburguesa
+    FIN_AL_HACER_CLIC
+
+    PARA CADA ENLACE en enlaces_navegacion:
+        AL HACER CLIC en ENLACE:
+            SI enlaces_navegacion TIENE CLASE 'active' ENTONCES:
+                Remover clase 'active' de enlaces_navegacion
+                Remover clase 'nav-open' de menu_hamburguesa
+            FIN_SI
+        FIN_AL_HACER_CLIC
+    FIN_PARA
+
+    // Lógica del toggle de modo oscuro
+    SI almacenamiento local 'darkMode' ES 'enabled' ENTONCES:
+        Agregar clase 'dark-mode' al CUERPO del documento
+        Marcar toggle_modo_oscuro como TRUE
+    SINO:
+        Remover clase 'dark-mode' del CUERPO del documento
+        Marcar toggle_modo_oscuro como FALSE
+    FIN_SI
+
+    AL CAMBIAR toggle_modo_oscuro:
+        LLAMAR ALTERNAR_MODO_OSCURO()
+    FIN_AL_CAMBIAR
+FIN_AL_CARGAR_DOCUMENTO
+
+// --- Factorial ---
+
+FUNCION FACTORIAL_CON_PASOS(NUMERO_N):
+    NUMERO_GRANDE = convertir NUMERO_N a tipo BigInt
+
+    SI NUMERO_GRANDE ES MENOR QUE 0 ENTONCES:
+        RETORNAR { total: "Error: Número negativo", detalle: "" }
+    FIN_SI
+    SI NUMERO_GRANDE ES IGUAL A 0 O NUMERO_GRANDE ES IGUAL A 1 ENTONCES:
+        RETORNAR { total: 1, detalle: "1" }
+    FIN_SI
+
+    resultado = 1
+    pasos = ""
+
+    PARA I DESDE NUMERO_GRANDE HASTA 1 (decrementando):
+        resultado = resultado * I
+        SI I NO ES IGUAL A 1 ENTONCES:
+            pasos = pasos + I + "x"
+        SINO:
+            pasos = pasos + I
+        FIN_SI
+    FIN_PARA
+
+    RETORNAR { total: resultado, detalle: pasos }
+
+FUNCION CALCULAR_FACTORIAL():
+    input_numero_factorial = obtener elemento "factorialNumero"
+    valor_input = convertir VALOR de input_numero_factorial a ENTERO
+
+    SI valor_input NO ES UN NÚMERO O valor_input ES MENOR QUE 0 ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('factorialResultado', 'factorialError', "Por favor, ingresa un número entero no negativo válido.", VERDADERO)
+        RETORNAR
+    FIN_SI
+
+    resultado_factorial = LLAMAR FACTORIAL_CON_PASOS(valor_input)
+    total = resultado_factorial.total
+    detalle = resultado_factorial.detalle
+
+    html_resultado = PÁRRAFO: valor_input + "! = " + detalle + " = " + total
+    LLAMAR MOSTRAR_RESULTADO('factorialResultado', 'factorialError', html_resultado)
+
+// --- Conteo (Combinatoria) ---
+
+FUNCION CALCULAR_PERMUTACIONES():
+    n = convertir VALOR de "permN" a ENTERO
+    k = convertir VALOR de "permK" a ENTERO
+
+    SI n NO ES UN NÚMERO O k NO ES UN NÚMERO O n ES MENOR QUE 0 O k ES MENOR QUE 0 ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('permutacionesResultado', 'permutacionesError', "Por favor, ingresa números enteros no negativos válidos.", VERDADERO)
+        RETORNAR
+    FIN_SI
+    SI k ES MAYOR QUE n ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('permutacionesResultado', 'permutacionesError', "k no puede ser mayor que n para permutaciones.", VERDADERO)
+        RETORNAR
+    FIN_SI
+
+    fact_n = LLAMAR FACTORIAL_CON_PASOS(n).total
+    fact_nk = LLAMAR FACTORIAL_CON_PASOS(n - k).total
+    resultado = fact_n DIVIDIDO POR fact_nk
+
+    html_resultado = PÁRRAFO: "P(" + n + ", " + k + ") = " + resultado
+    LLAMAR MOSTRAR_RESULTADO('permutacionesResultado', 'permutacionesError', html_resultado)
+
+FUNCION CALCULAR_COMBINACIONES():
+    n = convertir VALOR de "combN" a ENTERO
+    k = convertir VALOR de "combK" a ENTERO
+
+    SI n NO ES UN NÚMERO O k NO ES UN NÚMERO O n ES MENOR QUE 0 O k ES MENOR QUE 0 ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('combinacionesResultado', 'combinacionesError', "Por favor, ingresa números enteros no negativos válidos.", VERDADERO)
+        RETORNAR
+    FIN_SI
+    SI k ES MAYOR QUE n ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('combinacionesResultado', 'combinacionesError', "k no puede ser mayor que n para combinaciones.", VERDADERO)
+        RETORNAR
+    FIN_SI
+
+    fact_n = LLAMAR FACTORIAL_CON_PASOS(n).total
+    fact_k = LLAMAR FACTORIAL_CON_PASOS(k).total
+    fact_nk = LLAMAR FACTORIAL_CON_PASOS(n - k).total
+    resultado = fact_n DIVIDIDO POR (fact_k MULTIPLICADO POR fact_nk)
+
+    html_resultado = PÁRRAFO: "C(" + n + ", " + k + ") = " + resultado
+    LLAMAR MOSTRAR_RESULTADO('combinacionesResultado', 'combinacionesError', html_resultado)
+
+// --- Conjuntos ---
+
+FUNCION PARSEAR_ENTRADA_CONJUNTO(CADENA_ENTRADA):
+    Dividir CADENA_ENTRADA por comas, eliminar espacios, filtrar elementos vacíos
+    RETORNAR UN CONJUNTO con los elementos resultantes
+
+FUNCION MOSTRAR_RESULTADO_CONJUNTO(ID_SALIDA, ID_ERROR, CONJUNTO_RESULTADO):
+    arreglo_ordenado = convertir CONJUNTO_RESULTADO a ARREGLO y ORDENARLO
+    html_resultado = PÁRRAFO: "{ " + unir elementos de arreglo_ordenado con ", " + " }"
+    LLAMAR MOSTRAR_RESULTADO(ID_SALIDA, ID_ERROR, html_resultado)
+
+FUNCION CALCULAR_UNION():
+    conjunto_a = LLAMAR PARSEAR_ENTRADA_CONJUNTO(VALOR de "conjuntoA")
+    conjunto_b = LLAMAR PARSEAR_ENTRADA_CONJUNTO(VALOR de "conjuntoB")
+
+    union = NUEVO CONJUNTO que contiene todos los elementos de conjunto_a y conjunto_b
+    LLAMAR MOSTRAR_RESULTADO_CONJUNTO('unionResultado', 'unionError', union)
+
+FUNCION CALCULAR_INTERSECCION():
+    conjunto_a = LLAMAR PARSEAR_ENTRADA_CONJUNTO(VALOR de "conjuntoA")
+    conjunto_b = LLAMAR PARSEAR_ENTRADA_CONJUNTO(VALOR de "conjuntoB")
+
+    interseccion = NUEVO CONJUNTO que contiene elementos de conjunto_a que TAMBIÉN están en conjunto_b
+    LLAMAR MOSTRAR_RESULTADO_CONJUNTO('interseccionResultado', 'interseccionError', interseccion)
+
+FUNCION CALCULAR_DIFERENCIA_A_MENOS_B(): // A - B
+    conjunto_a = LLAMAR PARSEAR_ENTRADA_CONJUNTO(VALOR de "conjuntoA")
+    conjunto_b = LLAMAR PARSEAR_ENTRADA_CONJUNTO(VALOR de "conjuntoB")
+
+    diferencia = NUEVO CONJUNTO que contiene elementos de conjunto_a que NO están en conjunto_b
+    LLAMAR MOSTRAR_RESULTADO_CONJUNTO('diferenciaAResultado', 'diferenciaAError', diferencia)
+
+FUNCION CALCULAR_DIFERENCIA_B_MENOS_A(): // B - A
+    conjunto_a = LLAMAR PARSEAR_ENTRADA_CONJUNTO(VALOR de "conjuntoA")
+    conjunto_b = LLAMAR PARSEAR_ENTRADA_CONJUNTO(VALOR de "conjuntoB")
+
+    diferencia = NUEVO CONJUNTO que contiene elementos de conjunto_b que NO están en conjunto_a
+    LLAMAR MOSTRAR_RESULTADO_CONJUNTO('diferenciaBResultado', 'diferenciaBError', diferencia)
+
+// --- Funciones (Matemáticas) ---
+
+FUNCION EVALUAR_EXPRESION_MATEMATICA(EXPRESION, VALOR_X):
+    EXPRESION_SANITIZADA = reemplazar todas las 'x' en EXPRESION con '(VALOR_X)'
+    INTENTAR:
+        RETORNAR RESULTADO de evaluar EXPRESION_SANITIZADA
+    EXCEPTO SI HAY ERROR:
+        Imprimir mensaje de error
+        RETORNAR NO_ES_NUMERO (NaN)
+    FIN_INTENTAR
+
+FUNCION EVALUAR_FUNCION():
+    definicion = VALOR de "funcionDefinicion"
+    x_valor = convertir VALOR de "funcionX" a NÚMERO DECIMAL
+
+    SI definicion ES VACÍA ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('funcionResultado', 'funcionError', "Por favor, ingresa la definición de la función.", VERDADERO)
+        RETORNAR
+    FIN_SI
+    SI x_valor NO ES UN NÚMERO ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('funcionResultado', 'funcionError', "Por favor, ingresa un valor numérico para x.", VERDADERO)
+        RETORNAR
+    FIN_SI
+
+    resultado = LLAMAR EVALUAR_EXPRESION_MATEMATICA(definicion, x_valor)
+
+    SI resultado NO ES UN NÚMERO O resultado NO ES FINITO ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('funcionResultado', 'funcionError', "Error: Expresión inválida o resultado no numérico (ej: división por cero).", VERDADERO)
+        RETORNAR
+    FIN_SI
+    html_resultado = PÁRRAFO: "f(" + x_valor + ") = " + resultado
+    LLAMAR MOSTRAR_RESULTADO('funcionResultado', 'funcionError', html_resultado)
+
+FUNCION EVALUAR_COMPOSICION():
+    fx_def = VALOR de "funcionFX"
+    gx_def = VALOR de "funcionGX"
+    x_valor = convertir VALOR de "compX" a NÚMERO DECIMAL
+
+    SI fx_def ES VACÍA O gx_def ES VACÍA ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('composicionResultado', 'composicionError', "Por favor, ingresa ambas definiciones de función.", VERDADERO)
+        RETORNAR
+    FIN_SI
+    SI x_valor NO ES UN NÚMERO ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('composicionResultado', 'composicionError', "Por favor, ingresa un valor numérico para x.", VERDADERO)
+        RETORNAR
+    FIN_SI
+
+    resultado_gx = LLAMAR EVALUAR_EXPRESION_MATEMATICA(gx_def, x_valor)
+    SI resultado_gx NO ES UN NÚMERO O resultado_gx NO ES FINITO ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('composicionResultado', 'composicionError', "Error en g(x): Expresión inválida o resultado no numérico.", VERDADERO)
+        RETORNAR
+    FIN_SI
+
+    resultado_fgx = LLAMAR EVALUAR_EXPRESION_MATEMATICA(fx_def, resultado_gx)
+    SI resultado_fgx NO ES UN NÚMERO O resultado_fgx NO ES FINITO ENTONCES:
+        LLAMAR MOSTRAR_RESULTADO('composicionResultado', 'composicionError', "Error en f(g(x)): Expresión inválida o resultado no numérico.", VERDADERO)
+        RETORNAR
+    FIN_SI
+
+    html_resultado = PÁRRAFO: "f(g(" + x_valor + ")) = " + resultado_fgx
+    LLAMAR MOSTRAR_RESULTADO('composicionResultado', 'composicionError', html_resultado)
+
+FIN DEL SCRIPT
